@@ -1,0 +1,15 @@
+set editing-mode vi
+set completion-ignore-case on
+set colored-stats on
+set show-all-if-unmodified on
+set echo-control-characters off
+
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+
+# It is not recommended to set keyseq-timeout to 0
+# Is this too short already?
+# This was added to reduce lag after pressing esc to
+# go to normal mode
+set keyseq-timeout 50
