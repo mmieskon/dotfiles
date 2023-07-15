@@ -6,7 +6,6 @@ alias fastfetch='fastfetch -s "OS:Kernel:Packages:Separator:Display:GPU:WM:Separ
 [[ $(tty) != /dev/tty* ]] && PS1='[\[\e[1;36m\]\u@\h\[\e[39;49m\]]\[\e[1;36m\]$\[\e[39;49m\] '
 [[ $(tty) != /dev/tty* ]] && alias ls="exa --color=auto --group-directories-first"
 [[ $(tty) != /dev/tty* ]] && alias ll="exa -aalr --color=auto --group-directories-first"
-[[ $(tty) != /dev/tty* ]] && xset r rate 300 50
 stty -ixon # Discard using ctrl+s for freeze
 tabs -4
 
