@@ -3,11 +3,14 @@ set completion-ignore-case on
 set colored-stats on
 set show-all-if-unmodified on
 set echo-control-characters off
+set mark-symlinked-directories on
 
 set show-mode-in-prompt on
 set vi-ins-mode-string \1\e[6 q\2
 set vi-cmd-mode-string \1\e[2 q\2
 
+# TODO: How to also add keybinding for ';' -> ','
+# without infinite reqursion?
 $if mode=vi
     set keymap vi-command
     ",":";"
