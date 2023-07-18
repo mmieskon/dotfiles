@@ -5,9 +5,9 @@ smartclear() {
     line_count=$(tput lines)
     if [[ $line_count -lt 45 ]]
     then
-        clear
+        \clear
     else
-        clear && 
+        \clear && 
         fastfetch -s "OS:Kernel:Packages:Separator:Display:GPU:WM:Separator:Terminal:Shell:Separator:Host:CPU:Disk:Memory:Break:Colors"
     fi
 }
