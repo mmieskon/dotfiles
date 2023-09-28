@@ -1,0 +1,35 @@
+# Don't set to zero
+set -sg escape-time 50
+
+# Vim-like pane resizing
+bind-key -n C-M-k resize-pane -U
+bind-key -n C-M-j resize-pane -D
+bind-key -n C-M-h resize-pane -L
+bind-key -n C-M-l resize-pane -R
+
+# Vim-like pane switching
+bind-key -n M-k select-pane -U
+bind-key -n M-j select-pane -D
+bind-key -n M-h select-pane -L
+bind-key -n M-l select-pane -R
+
+# Remap new splits
+bind-key -n M-m split-window -h
+bind-key -n M-n split-window -v
+
+# Go to window, create it if it doesn't exist yet
+bind-key -n M-u if-shell 'tmux select-window -t :0' '' 'new-window -t :0'
+bind-key -n M-i if-shell 'tmux select-window -t :1' '' 'new-window -t :1'
+bind-key -n M-o if-shell 'tmux select-window -t :2' '' 'new-window -t :2'
+bind-key -n M-p if-shell 'tmux select-window -t :3' '' 'new-window -t :3'
+
+# Close window/pane
+bind-key -n M-c killp
+
+set -g status-bg white
+set -g status-fg black
+
+# Custom keybindings
+bind-key -t vi-copy '|' start-of-line
+
+
