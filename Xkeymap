@@ -1247,7 +1247,7 @@ xkb_symbols "pc+fi+inet(evdev)+terminate(ctrl_alt_bksp)" {
     };
     key <AE12> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [      grave,      acute,    dead_cedilla,     dead_ogonek ]
+        symbols[Group1]= [      acute,      grave,    dead_cedilla,     dead_ogonek ]
     };
     key <BKSP> {
         type= "CTRL+ALT",
