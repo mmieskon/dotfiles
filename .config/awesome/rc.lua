@@ -51,7 +51,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "zenburn/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 -- terminal = "alacritty -e /usr/bin/su dr-jfet"
-browser = "google-chrome-stable"
+browser = "firefox"
 launcher = "rofi -show run"
 screenshot = "maim --select | xclip -selection clipboard -t image/png"
 editor = os.getenv("EDITOR") or "nano"
