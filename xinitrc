@@ -9,12 +9,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-feh --bg-scale ~/Pictures/light.jpg &
-xkbcomp ~/.Xkeymap $DISPLAY
+xkbcomp ~/.Xkeymap "$DISPLAY"
 unclutter --timeout 1 &
-xcompmgr &
+picom --backend glx --daemon &
 xset r rate 300 50 &
 
-exec i3
-
-
+exec awesome

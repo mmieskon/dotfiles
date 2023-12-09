@@ -232,7 +232,7 @@ end)
 --     awful.button({ }, 4, awful.tag.viewnext),
 --     awful.button({ }, 5, awful.tag.viewprev)
 -- ))
--- }}}
+-- -- }}}
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
@@ -535,7 +535,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.centered+awful.placement.no_overlap+awful.placement.no_offscreen
      }
     },
 
