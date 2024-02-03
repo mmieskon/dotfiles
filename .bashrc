@@ -10,7 +10,13 @@ tabs -4
 
 PATH=~/.local/bin:~/scripts/:$PATH
 
+# PATH=/home/linuxbrew/.linuxbrew/bin/:$PATH
+# eval "$(oh-my-posh init bash --config $(brew --prefix oh-my-posh)/themes/kali.omp.json)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+
 alias dot='git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
+# alias ls='ls -lh --time-style=+"" --color=auto --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -aalr --color=auto --group-directories-first'
 alias grep='grep --color=auto'
@@ -44,5 +50,6 @@ zat() {
     ret="nohup zathura $1 >&/dev/null &"
     eval "$ret"
 }
+
 
 
