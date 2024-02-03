@@ -10,10 +10,7 @@ tabs -4
 
 PATH=~/.local/bin:~/scripts/:$PATH
 
-# PATH=/home/linuxbrew/.linuxbrew/bin/:$PATH
-# eval "$(oh-my-posh init bash --config $(brew --prefix oh-my-posh)/themes/kali.omp.json)"
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
+# eval "$(oh-my-posh init bash --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/kali.omp.json')"
 
 alias dot='git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
 # alias ls='ls -lh --time-style=+"" --color=auto --group-directories-first'
