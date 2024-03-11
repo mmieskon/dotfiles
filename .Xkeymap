@@ -1239,7 +1239,7 @@ xkb_symbols "pc+fi+inet(evdev)+terminate(ctrl_alt_bksp)" {
     };
     key <AE10> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [               0,           equal,      braceright,          degree ]
+        symbols[Group1]= [               0,           equal,      sterling,          degree ]
     };
     key <AE11> {
         type= "FOUR_LEVEL",
@@ -1358,7 +1358,7 @@ xkb_symbols "pc+fi+inet(evdev)+terminate(ctrl_alt_bksp)" {
     key <LFSH> {         [         Shift_L ] };
     key <BKSL> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [      apostrophe,        asterisk,      dead_caron,      dead_breve ]
+        symbols[Group1]= [      apostrophe,        asterisk,      guillemotright,      dead_breve ]
     };
     key <AB01> {
         type= "FOUR_LEVEL_ALPHABETIC",
@@ -1390,11 +1390,11 @@ xkb_symbols "pc+fi+inet(evdev)+terminate(ctrl_alt_bksp)" {
     };
     key <AB08> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           comma,       semicolon, plus, leftsinglequotemark ]
+        symbols[Group1]= [           comma,       semicolon, diaeresis, leftsinglequotemark ]
     };
     key <AB09> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [          period,           colon,   question,   dead_abovedot ]
+        symbols[Group1]= [          period,           colon,   yen,   dead_abovedot ]
     };
     key <AB10> {
         type= "FOUR_LEVEL",
