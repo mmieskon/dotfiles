@@ -486,7 +486,9 @@ require("lazy").setup({
 				-- clangd = {},
 				-- gopls = {},
 				-- pyright = {},
-				rust_analyzer = {},
+				rust_analyzer = {
+					settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } },
+				},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -696,41 +698,30 @@ require("lazy").setup({
 		opts = { signs = false },
 	},
 
-	{ -- Collection of various small independent plugins/modules
-		"echasnovski/mini.nvim",
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			-- Better Around/Inside textobjects
-			--
-			-- Examples:
-			--  - va)  - [V]isually select [A]round [)]paren
-			--  - yinq - [Y]ank [I]nside [N]ext [']quote
-			--  - ci'  - [C]hange [I]nside [']quote
-			-- require('mini.ai').setup { n_lines = 500 }
+			require("lualine").setup({
+				options = {
+					icons_enabled = true,
+					theme = "onedark",
+					component_separators = "|",
+					section_separators = "",
+				},
+				require("lualine").setup({
+					sections = {
+						lualine_a = {
+							{ "buffers" },
+						},
+						lualine_b = {},
+						lualine_c = {},
 
-			-- Add/delete/replace surroundings (brackets, quotes, etc.)
-			--
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
-			-- require('mini.surround').setup()
-
-			-- Simple and easy statusline.
-			--  You could remove this setup call if you don't like it,
-			--  and try some other statusline plugin
-			local statusline = require("mini.statusline")
-			-- set use_icons to true if you have a Nerd Font
-			statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-			-- You can configure sections in the statusline by overriding their
-			-- default behavior. For example, here we set the section for
-			-- cursor location to LINE:COLUMN
-			---@diagnostic disable-next-line: duplicate-set-field
-			statusline.section_location = function()
-				return "%2l:%-2v"
-			end
-
-			-- ... and there is more!
-			--  Check out: https://github.com/echasnovski/mini.nvim
+						lualine_x = { "branch", "diff", "diagnostic" },
+						lualine_y = {},
+					},
+				}),
+			})
 		end,
 	},
 
@@ -810,3 +801,41 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 
 -- Transparent background in hover
 vim.cmd("highlight! link NormalFloat Normal")
+
+---- My keymaps ----
+local function map(mode, src, dest, opts)
+	opts = opts or {}
+	local default_opts = {
+		noremap = true,
+		silent = true,
+	}
+	for key, _ in pairs(default_opts) do
+		if opts[key] == nil then
+			opts[key] = default_opts[key]
+		end
+	end
+	if mode:len() > 1 then
+		for i in mode:gmatch(".") do
+			vim.api.nvim_set_keymap(i, src, dest, opts)
+		end
+	else
+		vim.api.nvim_set_keymap(mode, src, dest, opts)
+	end
+end
+
+vim.g.mapleader = " "
+map("", "<space>", "<nop>")
+map("", "<leader>tn", ":<c-w>tabnew ", { silent = false })
+map("", "<leader><tab>", ":<c-w>tabnext<cr>")
+map("n", "<esc>", "<esc>:noh<cr>")
+map("", ";", ",")
+map("", ",", ";")
+map("n", "<leader><cr>", ":!make<cr>")
+
+map("i", "£", "=>")
+map("i", "»", "->")
+map("i", "¥", "..=")
+map("i", "ŋ", "<esc>A;<esc>o")
+map("n", "ŋ", "A;<esc>o")
+map("i", "µ", "<esc>A")
+map("i", "¨", "<esc>A,<esc>o")
