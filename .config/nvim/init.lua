@@ -191,16 +191,16 @@ require("lazy").setup({
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
 
-			vim.keymap.set("n", "<leader>u", function()
+			vim.keymap.set("n", "¼", function()
 				harpoon:list():select(1)
 			end)
-			vim.keymap.set("n", "<leader>i", function()
+			vim.keymap.set("n", "½", function()
 				harpoon:list():select(2)
 			end)
-			vim.keymap.set("n", "<leader>o", function()
+			vim.keymap.set("n", "¾", function()
 				harpoon:list():select(3)
 			end)
-			vim.keymap.set("n", "<leader>p", function()
+			vim.keymap.set("n", "¿", function()
 				harpoon:list():select(4)
 			end)
 
@@ -744,6 +744,28 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
+			local harpoon = require("harpoon")
+			function Harpoon_files()
+				local contents = {}
+				local marks_length = harpoon:list():length()
+				local current_file_path = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":.")
+				for index = 1, marks_length do
+					local harpoon_file_path = harpoon:list():get(index).value
+					local file_name = harpoon_file_path == "" and "(empty)"
+						or vim.fn.fnamemodify(harpoon_file_path, ":t")
+
+					if current_file_path == harpoon_file_path then
+						contents[index] =
+							string.format("%%#HarpoonNumberActive# %s. %%#HarpoonActive#%s ", index, file_name)
+					else
+						contents[index] =
+							string.format("%%#HarpoonNumberInactive# %s. %%#HarpoonInactive#%s ", index, file_name)
+					end
+				end
+
+				return table.concat(contents)
+			end
+
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
@@ -753,9 +775,10 @@ require("lazy").setup({
 				},
 				require("lualine").setup({
 					sections = {
-						lualine_a = {
-							{ "buffers" },
-						},
+						-- lualine_a = {
+						-- 	{ "buffers" },
+						-- },
+						lualine_a = { { Harpoon_files } },
 						lualine_b = {},
 						lualine_c = {},
 
