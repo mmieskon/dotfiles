@@ -173,13 +173,55 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
-	{ ------------------------------------------
+	{ -------------------------------------------
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+
+			-- REQUIRED
+			harpoon:setup()
+			-- REQUIRED
+
+			vim.keymap.set("n", "<leader>a", function()
+				harpoon:list():append()
+			end)
+			vim.keymap.set("n", "<C-e>", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
+
+			vim.keymap.set("n", "<leader>u", function()
+				harpoon:list():select(1)
+			end)
+			vim.keymap.set("n", "<leader>i", function()
+				harpoon:list():select(2)
+			end)
+			vim.keymap.set("n", "<leader>o", function()
+				harpoon:list():select(3)
+			end)
+			vim.keymap.set("n", "<leader>p", function()
+				harpoon:list():select(4)
+			end)
+
+			-- Toggle previous & next buffers stored within Harpoon list
+			vim.keymap.set("n", "<leader>p", function()
+				harpoon:list():prev()
+			end)
+			vim.keymap.set("n", "<leader>n", function()
+				harpoon:list():next()
+			end)
+		end,
+	}, ------------------------------------------
+
+	{ -------------------------------------------
 		-- TODO: README says something about
 		-- using with nvim-cmp ?
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {},
 	}, ------------------------------------------
+
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
