@@ -220,6 +220,14 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {},
+
+		-- TODO: Should I enable something like this?
+		--
+		-- config = function()
+		-- 	require("nvim-autopairs").setup({
+		-- 		ignored_next_char = "[%w%.]", -- will ignore alphanumeric and `.` symbol
+		-- 	})
+		-- end,
 	}, ------------------------------------------
 
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
@@ -775,11 +783,8 @@ require("lazy").setup({
 				},
 				require("lualine").setup({
 					sections = {
-						-- lualine_a = {
-						-- 	{ "buffers" },
-						-- },
 						lualine_a = { { Harpoon_files } },
-						lualine_b = {},
+						lualine_b = { "buffers" },
 						lualine_c = {},
 
 						lualine_x = { "branch", "diff", "diagnostic" },
@@ -895,7 +900,8 @@ map("", "<leader><tab>", ":<c-w>tabnext<cr>")
 map("n", "<esc>", "<esc>:noh<cr>")
 map("", ";", ",")
 map("", ",", ";")
-map("n", "<leader><cr>", ":!make<cr>")
+map("n", "<leader><cr>", ":!cargo test<cr>")
+map("n", "<leader><leader>", ":!cargo run -q<cr>")
 
 map("i", "£", "=>")
 map("i", "»", "->")
