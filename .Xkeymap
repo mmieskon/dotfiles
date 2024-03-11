@@ -1256,21 +1256,21 @@ xkb_symbols "pc+fi+inet(evdev)+terminate(ctrl_alt_bksp)" {
     key  <TAB> {         [             Tab,    ISO_Left_Tab ] };
     key <AD01> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               q,               Q,               braceleft,               Q ] // Modified
+        symbols[Group1]= [               q,               Q,               onequarter,               Q ] // Modified
     };
     key <AD02> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               w,               W,               bracketleft,               W ] // Modified
+        symbols[Group1]= [               w,               W,               onehalf,               W ] // Modified
 
     };
     key <AD03> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
-        symbols[Group1]= [               e,               E,                bracketright,        NoSymbol ] // Modified
+        symbols[Group1]= [               e,               E,                threequarters,        NoSymbol ] // Modified
 
     };
     key <AD04> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               r,               R,               braceright,               R ] // Modified
+        symbols[Group1]= [               r,               R,               questiondown,               R ] // Modified
 
     };
     key <AD05> {
