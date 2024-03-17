@@ -661,6 +661,8 @@ require("lazy").setup({
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-cmdline",
 
 			-- If you want to add a bunch of pre-configured snippets,
 			--    you can use this plugin to help you. It even has snippets
@@ -730,11 +732,19 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "nvim_lsp_signature_help" },
 				},
+				-- cmp.setup.cmdline(":", {
+				-- 	mapping = cmp.mapping.preset.cmdline(),
+				-- 	sources = cmp.config.sources({
+				-- 		{ name = "path" },
+				-- 	}, {
+				-- 		{ name = "cmdline" },
+				-- 	}),
+				-- }),
 			})
 		end,
 	},
-
 	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
 		-- change the command in the config to whatever the name of that colorscheme is
@@ -856,6 +866,7 @@ require("lazy").setup({
 	-- { import = 'custom.plugins' },
 }, {
 	ui = {
+		border = "rounded",
 		-- If you have a Nerd Font, set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons otherwise define a unicode icons table
 		icons = vim.g.have_nerd_font and {} or {
@@ -888,6 +899,40 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 
 -- Transparent background in hover
 vim.cmd("highlight! link NormalFloat Normal")
+
+-- Autocompletion for command mode
+local cmp = require("cmp")
+cmp.setup.cmdline(":", {
+	-- TODO: How to change the mapping for tab autocompletion?
+	mapping = cmp.mapping.preset.cmdline({
+		["<tab>"] = {
+			c = cmp.mapping.confirm({ select = false }),
+		},
+		["<down>"] = {
+			c = function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				else
+					fallback()
+				end
+			end,
+		},
+		["<up>"] = {
+			c = function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				else
+					fallback()
+				end
+			end,
+		},
+	}),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+})
 
 ---- My keymaps ----
 local function map(mode, src, dest, opts)
