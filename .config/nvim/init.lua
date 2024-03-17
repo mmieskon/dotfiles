@@ -184,10 +184,10 @@ require("lazy").setup({
 			harpoon:setup()
 			-- REQUIRED
 
-			vim.keymap.set("n", "<leader>a", function()
+			vim.keymap.set("n", "<leader>ha", function()
 				harpoon:list():append()
 			end)
-			vim.keymap.set("n", "<C-e>", function()
+			vim.keymap.set("n", "<leader>he", function()
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
 
@@ -424,7 +424,17 @@ require("lazy").setup({
 
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", opts = {} },
+			{
+				"j-hui/fidget.nvim",
+				opts = {
+					notification = {
+						window = {
+							winblend = 0,
+							border = "rounded",
+						},
+					},
+				},
+			},
 		},
 		config = function()
 			-- Brief Aside: **What is LSP?**
@@ -762,12 +772,18 @@ require("lazy").setup({
 					local file_name = harpoon_file_path == "" and "(empty)"
 						or vim.fn.fnamemodify(harpoon_file_path, ":t")
 
+					local s = ""
+					if index ~= 1 then
+						s = s .. "|"
+					end
 					if current_file_path == harpoon_file_path then
-						contents[index] =
-							string.format("%%#HarpoonNumberActive# %s. %%#HarpoonActive#%s ", index, file_name)
+						-- contents[index] = string.format("%%#HarpoonActive#%s | ", file_name)
+						contents[index] = s
+							.. string.format("%%#HarpoonNumberActive# %s. %%#HarpoonActive#%s ", index, file_name)
 					else
-						contents[index] =
-							string.format("%%#HarpoonNumberInactive# %s. %%#HarpoonInactive#%s ", index, file_name)
+						-- contents[index] = string.format("%%#HarpoonInactive#%s | ", file_name)
+						contents[index] = s
+							.. string.format("%%#HarpoonNumberInactive# %s. %%#HarpoonInactive#%s ", index, file_name)
 					end
 				end
 
@@ -783,12 +799,13 @@ require("lazy").setup({
 				},
 				require("lualine").setup({
 					sections = {
-						lualine_a = { { Harpoon_files } },
-						lualine_b = { "buffers" },
+						lualine_a = { "filename" },
+						lualine_b = { { Harpoon_files } },
 						lualine_c = {},
 
-						lualine_x = { "branch", "diff", "diagnostic" },
-						lualine_y = {},
+						-- lualine_x = { "buffers" },
+						lualine_x = {},
+						lualine_y = { "branch", "diff", "diagnostic" },
 					},
 				}),
 			})
@@ -900,8 +917,8 @@ map("", "<leader><tab>", ":<c-w>tabnext<cr>")
 map("n", "<esc>", "<esc>:noh<cr>")
 map("", ";", ",")
 map("", ",", ";")
-map("n", "<leader><cr>", ":!cargo test<cr>")
-map("n", "<leader><leader>", ":!cargo run -q<cr>")
+map("n", "<leader><cr>", ":!echo && cargo test<cr>")
+map("n", "<leader><leader>", ":!echo && cargo run -q<cr>")
 
 map("i", "£", "=>")
 map("i", "»", "->")
