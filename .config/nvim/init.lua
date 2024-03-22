@@ -126,10 +126,10 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<left>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<right>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<down>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+--- vim.keymap.set("n", "<left>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+--- vim.keymap.set("n", "<right>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+--- vim.keymap.set("n", "<down>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+--- vim.keymap.set("n", "<up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -173,6 +173,24 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{ -------------------------------------------
+
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<M-h>", "<cmd>TmuxNavigateLeft<cr>" },
+			{ "<M-j>", "<cmd>TmuxNavigateDown<cr>" },
+			{ "<M-k>", "<cmd>TmuxNavigateUp<cr>" },
+			{ "<M-l>", "<cmd>TmuxNavigateRight<cr>" },
+		},
+	}, ------------------------------------------
+
 	{ -------------------------------------------
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = "nvim-treesitter/nvim-treesitter",
@@ -635,7 +653,7 @@ require("lazy").setup({
 								callSnippet = "Replace",
 							},
 							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { "missing-fields" } },
+							diagnostics = { disable = { "missing-fields" } },
 						},
 					},
 				},
@@ -943,6 +961,8 @@ require("lazy").setup({
 })
 
 ---- Mods ----
+
+vim.cmd("set nomodeline")
 
 -- Borders in ':LspInfo'
 require("lspconfig.ui.windows").default_options.border = "rounded"
