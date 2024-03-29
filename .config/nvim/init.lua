@@ -173,6 +173,36 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{ ------------------------------------------
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		--- type Flash.Config
+		opts = {
+			modes = {
+				char = { enabled = false },
+				search = { enabled = false },
+			},
+		},
+        -- stylua: ignore
+        keys = {
+            {
+                "ö",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").jump()
+                end,
+                desc = "Flash"
+            },
+            {
+                "Ö",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "Flash Treesitter"
+            },
+        },
+	}, ------------------------------------------
 	{ -------------------------------------------
 
 		"christoomey/vim-tmux-navigator",
