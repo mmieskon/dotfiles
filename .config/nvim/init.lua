@@ -174,6 +174,19 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{ ------------------------------------------
+		"windwp/nvim-ts-autotag",
+		ft = {
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+		},
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	}, -----------------------------------------
+
+	{ ------------------------------------------
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		--- type Flash.Config
@@ -341,7 +354,7 @@ require("lazy").setup({
 	--  This is equivalent to:
 	--    require('Comment').setup({})
 
-	-- "gc" to comment visual regions/lines
+	-- Shortcut to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {
 		opleader = {
 			line = "<leader>c",
@@ -460,7 +473,11 @@ require("lazy").setup({
 				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 				--   },
 				-- },
-				-- pickers = {}
+				pickers = {
+					find_files = {
+						push_tagstack_on_edit = true,
+					},
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -848,6 +865,7 @@ require("lazy").setup({
 			})
 		end,
 	},
+
 	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
 		-- change the command in the config to whatever the name of that colorscheme is
@@ -861,14 +879,6 @@ require("lazy").setup({
 			vsc.setup({ transparent = true })
 			vsc.load()
 		end,
-	},
-
-	-- Highlight todo, notes, etc in comments
-	{
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
 	},
 
 	{
