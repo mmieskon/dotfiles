@@ -1,0 +1,39 @@
+(deflocalkeys-linux § 41 + 12 ´ 13 å 26 ¨ 27 ö 39 ä 40 ' 43 < 86 , 51 . 52 - 53)
+(deflocalkeys-win § 220 + 187 ´ 219 å 221 ¨ 186 ö 192 ä 222 ' 191 < 226 , 188 . 190 - 189)
+(defsrc)
+
+(defalias lsft (multi lsft (layer-while-held shift)))
+(defalias rsft (multi rsft (layer-while-held shift)))
+(defalias ralt (multi ralt (layer-while-held altgr)))
+
+(deflayermap (default)
+    caps esc
+    esc caps
+    lsft @lsft
+    rsft @rsft
+    ralt @ralt
+    < @ralt
+    å AG-<
+    ¨ AG-4
+)
+
+(deflayermap (shift)
+    å (unmod ralt <)
+    ¨ (macro ¨ ¨)
+)
+
+(deflayermap (altgr)
+    h left
+    j down
+    k up
+    l right
+    y (unmod lsft 6)
+    u (unmod ralt 7)
+    i (unmod ralt 8)
+    o (unmod ralt 9)
+    p (unmod ralt 0)
+    å (unmod ralt +)
+    ö (unmod <)
+    ä (unmod lsft <)
+    ¨ (macro ¨ ¨)
+)
