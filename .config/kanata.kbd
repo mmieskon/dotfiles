@@ -36,4 +36,5 @@
     ö (unmod <)
     ä (unmod lsft <)
     ¨ (macro ¨ ¨)
+    ' (macro (unmod -) (unmod lsft <))
 )
