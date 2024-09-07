@@ -37,4 +37,5 @@
     ä (unmod lsft <)
     ¨ (macro ¨ ¨)
     ' (macro (unmod -) (unmod lsft <))
+    0 (macro (unmod lsft 0) (unmod lsft <))
 )
