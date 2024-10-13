@@ -44,7 +44,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 
 -- Automatic wrapping for long lines
-vim.opt.textwidth = 100
+vim.opt.textwidth = 80
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
@@ -174,6 +174,26 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{ ------------------------------------------
+		{
+			"shortcuts/no-neck-pain.nvim",
+			version = "*",
+			config = function()
+				require("no-neck-pain").setup({
+					width = 120,
+				})
+				vim.cmd("NoNeckPain")
+
+				vim.keymap.set("n", "<leader>nnp", "<cmd>NoNeckPain<cr>")
+			end,
+			opts = {
+				autocmds = {
+					enableOnVimEnter = true,
+				},
+			},
+		},
+	}, -----------------------------------------
+
+	{ ------------------------------------------
 		"windwp/nvim-ts-autotag",
 		ft = {
 			"javascript",
@@ -186,36 +206,36 @@ require("lazy").setup({
 		end,
 	}, -----------------------------------------
 
-	{ ------------------------------------------
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		--- type Flash.Config
-		opts = {
-			modes = {
-				char = { enabled = false },
-				search = { enabled = false },
-			},
-		},
-        -- stylua: ignore
-        keys = {
-            {
-                "ö",
-                mode = { "n", "o", "x" },
-                function()
-                    require("flash").jump()
-                end,
-                desc = "Flash"
-            },
-            {
-                "Ö",
-                mode = { "n", "o", "x" },
-                function()
-                    require("flash").treesitter()
-                end,
-                desc = "Flash Treesitter"
-            },
-        },
-	}, ------------------------------------------
+	-- { ------------------------------------------
+	-- 	"folke/flash.nvim",
+	-- 	event = "VeryLazy",
+	-- 	--- type Flash.Config
+	-- 	opts = {
+	-- 		modes = {
+	-- 			char = { enabled = false },
+	-- 			search = { enabled = false },
+	-- 		},
+	-- 	},
+	-- -- stylua: ignore
+	-- keys = {
+	--     {
+	--         "ö",
+	--         mode = { "n", "o", "x" },
+	--         function()
+	--             require("flash").jump()
+	--         end,
+	--         desc = "Flash"
+	--     },
+	--     {
+	--         "Ö",
+	--         mode = { "n", "o", "x" },
+	--         function()
+	--             require("flash").treesitter()
+	--         end,
+	--         desc = "Flash Treesitter"
+	--     },
+	-- },
+	-- }, ------------------------------------------
 	{ -------------------------------------------
 
 		"christoomey/vim-tmux-navigator",
@@ -746,6 +766,7 @@ require("lazy").setup({
 				lsp_fallback = true,
 			},
 			formatters_by_ft = {
+				markdown = { "deno_fmt" },
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
@@ -1083,9 +1104,9 @@ map("n", "<leader><leader>", ":!echo && cargo run -q<cr>")
 map("i", "£", "=>")
 map("i", "»", "->")
 map("i", "¥", "..=")
-map("i", "ŋ", "<esc>A;<esc>o")
-map("n", "ŋ", "A;<esc>o")
-map("i", "µ", "<esc>A")
-map("i", "¨", "<esc>A,<esc>o")
-map("i", "<down>", "<esc>vbUea")
-map("i", "<up>", "<esc>vbUea ")
+-- map("i", "ŋ", "<esc>A;<esc>o")
+-- map("n", "ŋ", "A;<esc>o")
+-- map("i", "µ", "<esc>A")
+-- map("i", "¨", "<esc>A,<esc>o")
+-- map("i", "<down>", "<esc>vbUea")
+-- map("i", "<up>", "<esc>vbUea ")
