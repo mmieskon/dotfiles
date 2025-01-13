@@ -174,6 +174,53 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{ ------------------------------------------
+		-- TODO: nvim-dap-ui, nvim-dap-virtual-text
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+		},
+		config = function()
+			local dap = require("dap")
+			local ui = require("dapui")
+
+			ui.setup()
+
+			dap.adapters.gdb = {
+				type = "executable",
+				command = "gdb",
+				args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+			}
+
+			dap.configurations.c = {
+				{
+					name = "Launch",
+					type = "gdb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopAtBeginningOfMainSubprogram = false,
+				},
+			}
+
+			dap.listeners.before.attach.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				ui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				ui.close()
+			end
+		end,
+	}, -----------------------------------------
+
+	{ ------------------------------------------
 		{
 			"shortcuts/no-neck-pain.nvim",
 			version = "*",
@@ -413,23 +460,6 @@ require("lazy").setup({
 	-- Then, because we use the `config` key, the configuration only runs
 	-- after the plugin has been loaded:
 	--  config = function() ... end
-
-	{ -- Useful plugin to show you pending keybinds.
-		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
-		config = function() -- This is the function that runs, AFTER loading
-			require("which-key").setup()
-
-			-- Document existing key chains
-			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-			})
-		end,
-	},
 
 	-- NOTE: Plugins can specify dependencies.
 	--
@@ -768,12 +798,12 @@ require("lazy").setup({
 			formatters_by_ft = {
 				markdown = { "deno_fmt" },
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use a sub-list to tell conform to run *until* a formatter
-				-- is found.
-				-- javascript = { { "prettierd", "prettier" } },
+				c = { "c_formatter_42" },
+			},
+			formatters = {
+				c_formatter_42 = {
+					command = "c_formatter_42",
+				},
 			},
 		},
 	},
@@ -1110,3 +1140,21 @@ map("i", "¥", "..=")
 -- map("i", "¨", "<esc>A,<esc>o")
 -- map("i", "<down>", "<esc>vbUea")
 -- map("i", "<up>", "<esc>vbUea ")
+
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = "c",
+-- 	callback = function()
+-- 		local client = vim.lsp.start_client({
+-- 			name = "norminette-ls",
+-- 			cmd = { "/home/admin/repos/norminette-ls/target/debug/norminette-ls" },
+-- 		})
+--
+-- 		if not client then
+-- 			vim.notify("problem with starting the client")
+-- 			return
+-- 		end
+--
+-- 		vim.cmd('echo "jou jou"')
+-- 		vim.lsp.buf_attach_client(0, client)
+-- 	end,
+-- })
