@@ -5,6 +5,8 @@
 (defalias lsft (multi lsft (layer-while-held shift)))
 (defalias rsft (multi rsft (layer-while-held shift)))
 (defalias ralt (multi ralt (layer-while-held altgr)))
+(defalias tmpcaps (layer-switch tmpcaps))
+(defalias default (layer-switch default))
 
 (deflayermap (default)
     caps esc
@@ -38,4 +40,12 @@
     ¨ (macro ¨ ¨)
     ' (macro (unmod -) (unmod lsft <))
     0 (macro (unmod lsft 0) (unmod lsft <))
+    caps @tmpcaps
+)
+
+(deflayermap (tmpcaps)
+    a S-a b S-b c S-c d S-d e S-e f S-f g S-g h S-h i S-i j S-j k S-k l S-l m S-m n S-n o S-o
+    p S-p q S-q r S-r s S-s t S-t u S-u v S-v x S-x y S-y z S-z ä S-ä ö S-ö
+    spc (multi spc @default)
+    enter (multi enter @default)
 )
