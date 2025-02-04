@@ -174,6 +174,13 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	{ ------------------------------------------
+		"EyzeCOLD/nvim-function-linecount",
+		config = function()
+			require("nvim-function-linecount")
+		end,
+	}, -----------------------------------------
+
+	{ ------------------------------------------
 		-- TODO: nvim-dap-ui, nvim-dap-virtual-text
 		"mfussenegger/nvim-dap",
 		dependencies = {
@@ -1131,6 +1138,8 @@ map("", ",", ";")
 map("n", "<leader><cr>", ":!echo && cargo test<cr>")
 map("n", "<leader><leader>", ":!echo && cargo run -q<cr>")
 
+map("n", "<leader>lr", ":LspRestart<cr>")
+
 map("i", "£", "=>")
 map("i", "»", "->")
 map("i", "¥", "..=")
@@ -1158,3 +1167,6 @@ map("i", "¥", "..=")
 -- 		vim.lsp.buf_attach_client(0, client)
 -- 	end,
 -- })
+
+-- Interpret .h files as C, not cpp, files
+vim.g.c_syntax_for_h = 1
