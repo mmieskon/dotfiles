@@ -912,14 +912,6 @@ require("lazy").setup({
 					{ name = "path" },
 					{ name = "nvim_lsp_signature_help" },
 				},
-				-- cmp.setup.cmdline(":", {
-				-- 	mapping = cmp.mapping.preset.cmdline(),
-				-- 	sources = cmp.config.sources({
-				-- 		{ name = "path" },
-				-- 	}, {
-				-- 		{ name = "cmdline" },
-				-- 	}),
-				-- }),
 			})
 		end,
 	},
@@ -1101,9 +1093,9 @@ cmp.setup.cmdline(":", {
 		},
 	}),
 	sources = cmp.config.sources({
-		{ name = "path" },
+		{ name = "path", option = { trailing_slash = false } },
 	}, {
-		{ name = "cmdline" },
+		{ name = "cmdline", option = { treat_trailing_slash = true } },
 	}),
 })
 
